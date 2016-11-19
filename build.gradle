@@ -1,0 +1,38 @@
+group 'PuyoPuyoF2'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'puyopuyo.PuyoFrame'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/"}
+}
+
+run {
+    //jvmArgs = ["-Djava.library.path=temp_lib2"]
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+jar {
+    manifest {
+//        attributes 'Implementation-Title': 'Mychael Style Tools', 'Implementation-Version': 1.0
+        attributes "Main-Class" : mainClassName
+    }
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+}
